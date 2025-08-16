@@ -1,0 +1,16 @@
+{
+  "name": "python-to-node-port",
+  "version": "0.1.0",
+  "type": "module",
+  "private": true,
+  "scripts": {
+    "start": "node src/main.js",
+    "lint": "echo \"(add eslint if you want)\""
+  },
+  "dependencies": {
+    "dotenv": "^16.4.5",
+    "ethers": "^6.15.0",
+    "pino": "^9.4.0",
+    "readline-sync": "^1.4.10"
+  }
+}

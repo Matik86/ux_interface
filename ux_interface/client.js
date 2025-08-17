@@ -14,6 +14,7 @@ export class Client {
         this.address = ethers.getAddress(this.wallet.address);  // Адрес в checksum-формате
     }
 
+    // Инициализация(компиляция) контракта NFT
     getNFTContract(contractAddress) {
         return new ethers.Contract(
             ethers.getAddress(contractAddress),
@@ -22,6 +23,7 @@ export class Client {
         );
     }
 
+    // Инициализация(компиляция) контракта токена
     getTokenContract(contractAddress) {
         return new ethers.Contract(
             ethers.getAddress(contractAddress),
@@ -30,16 +32,18 @@ export class Client {
         );
     }
 
+    // Получаем баланс конкретного NFT токена
     async getNFTBalance(contractAddress, token_id) {
         return this.getNFTContract(contractAddress).balanceOf(this.address, token_id)
     }
 
+    // Получаем баланс токена
     async getTokenBalance(contractAddress) {
         return this.getTokenContract(contractAddress).balanceOf(this.address)
     }
     
-
-    async getMintNFTSignature(nftContractAddress, tokenId, amount) { // получаем сигнатуру от админа на минт нфт
+    // Получаем сигнатуру от админа на минт NFT
+    async getMintNFTSignature(nftContractAddress, tokenId, amount) {
         const nftContract = this.getNFTContract(nftContractAddress);
 
         
@@ -79,7 +83,8 @@ export class Client {
         return signature;
     }
 
-    async getMintTokenSignature(tokenContractAddress, amount) { // получаем сигнатуру от админа на минт токенов
+    // Получаем сигнатуру от админа на минт токенов
+    async getMintTokenSignature(tokenContractAddress, amount) {
         const tokenContract = this.getTokenContract(tokenContractAddress);
 
         const nonceBigInt = await tokenContract.nonces(this.address);
@@ -117,6 +122,7 @@ export class Client {
         return signature;
     }
 
+    // Получаем текущую комиссию в сети
     async getPriorityFee() {
         const feeHistory = await this.provider.send("eth_feeHistory", [
             25,       
@@ -138,6 +144,7 @@ export class Client {
         return priorityFee;
     }
 
+    // Составляем основную дату для отправки транзы
     async prepareTransaction(value = 0n) {
         try {
             const nonce = await this.provider.getTransactionCount(this.address);
@@ -165,7 +172,6 @@ export class Client {
             console.error(`prepareTransaction error: ${error}`);
         }
     }
-
 
 
     // Отправка транзакции
@@ -198,7 +204,7 @@ export class Client {
     }
 
 
-
+    // Ожидание + верификация транзакции
     async verifyTx(txData) {
         try {
             if (!txData) {

@@ -11,7 +11,7 @@ export class MintToken {
         this.contract = client.getTokenContract(TOKEN_ADDRESS);
     }
 
-    // Mint NFT
+    // Mint токенов (для примера)
     async mintToken(amount) {
         try {
             // Получаем nonce для минта
@@ -49,6 +49,7 @@ export class MintToken {
         }
     }
 
+    // burn токенов (для примера)
     async burnToken(amount) {
         try {
             const txParams = await this.client.prepareTransaction();

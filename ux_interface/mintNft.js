@@ -10,7 +10,7 @@ export class MintNft {
         this.contract = client.getNFTContract(NFT_ADDRESS);
     }
 
-    // Mint NFT
+    // Mint NFT (для примера)
     async mintNft(tokenId, amount) {
         try {
             // Получаем nonce для минта
@@ -50,7 +50,7 @@ export class MintNft {
         }
     }
 
-    // Burn NFT
+    // Burn NFT(для примера)
     async burnNft(tokenId, amount) {
         try {
             const txParams = await this.client.prepareTransaction();
